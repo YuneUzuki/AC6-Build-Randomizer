@@ -13,6 +13,10 @@ function App() {
               <h1>ASSEMBLY</h1>
             </div>
             <br/>
+            <div className="mission entry">
+              <span>MISSION:</span>
+            </div>
+            <br/>
             <div className="category">
                 <h2>UNIT</h2>
                 <div className="entry-container">
@@ -238,13 +242,435 @@ function App() {
                 <input type="checkbox" id="no-weapon"/>
                 <span>INCLUDES "NOTHING" IN WEAPON ROTATION</span>
               </div>
+              <div className="option">
+                <input type="checkbox" id="arena"/>
+                <span>INCLUDES ARENA IN MISSION ROTATION</span>
+              </div>
             </div>
-          </div>
-          <br/>
-          <br/>
-          <div className="randomizer-options">
-            <div className="collumn-2-toprow"></div>
-            <h1>PART STATS</h1>
+            <br/>
+            <div className="category">
+              <h2>PARTS UNLOCKED</h2>
+              <br/>
+              <div className="unlocked-table">
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-J-200</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>LR-036</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>LR-037</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>RF-024</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>RF-025</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-J-201</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MG-014</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-MG-02</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WR-0555</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-E-210</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-GA-08</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>SG-026</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>SG-027</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WR-0777</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HG-003</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HG-004</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-E-211</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>EL-PW-00</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66EG</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-BA-06</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MAJESTIC</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>LITTLE GEM</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>44-141</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-GR-07</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DIZZY</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IRIDIUM</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-T-222</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-T-223</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WS-1200</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WB-0000</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LR</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LA</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VE-66LRB</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LS</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WUERGER</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LH</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VVC-760PR</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IA-C01W1</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IA-C01W6</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IB-C03W1</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>44-142</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HI-16</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HI-18</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HML-G2</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HML-G3</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WS-5000</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>PFAU-66D</span>
+                  </div>
+                </div>
+                <br/>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-J-200</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>LR-036</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>LR-037</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>RF-024</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>RF-025</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-J-201</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MG-014</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-MG-02</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WR-0555</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-E-210</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-GA-08</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>SG-026</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>SG-027</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WR-0777</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HG-003</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HG-004</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-E-211</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>EL-PW-00</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66EG</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-BA-06</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MAJESTIC</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>LITTLE GEM</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>44-141</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DF-GR-07</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>DIZZY</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IRIDIUM</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-T-222</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>MA-T-223</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WS-1200</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WB-0000</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LR</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LA</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VE-66LRB</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LS</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WUERGER</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VP-66LH</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>VVC-760PR</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IA-C01W1</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IA-C01W6</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>IB-C03W1</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>44-142</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HI-16</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HI-18</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HML-G2</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>HML-G3</span>
+                  </div>
+                </div>
+                <div className="unlocked-row">
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>WS-5000</span>
+                  </div>
+                  <div className="unlocked-part">
+                    <input type="checkbox" className="small-input"/>
+                    <span>PFAU-66D</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

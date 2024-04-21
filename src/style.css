@@ -150,3 +150,36 @@ h1{
     background-color: rgb(160, 200, 215);
     box-shadow: -3px 3px 0px rgba(20, 140, 240, 1);
 }
+.mission{
+    width: 96%;
+    margin-left: 6px;
+}
+
+.unlocked-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.unlocked-part{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+}
+.unlocked-part span{
+    font-size: small;
+    color: white;
+    margin: 2px;
+}
+.small-input{
+    appearance: none;
+    width: .9vw;
+    height: .9vw;
+    border: solid rgb(160, 200, 215) 2px;
+}
+.small-input:hover {
+    border: solid rgb(160, 200, 215) 3px;
+}
+.small-input:checked {
+    background-color: rgb(160, 200, 215);
+    box-shadow: -3px 3px 0px rgba(20, 140, 240, 1);
+}

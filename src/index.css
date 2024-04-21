@@ -4,6 +4,7 @@
   font-family: sans-serif;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  user-select: none;
 }
 *::-webkit-scrollbar{
   display: none;
