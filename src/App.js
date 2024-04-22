@@ -1,7 +1,98 @@
 import "./style.css";
-import { MdReplay } from "react-icons/md";
+
+import { allRArmParts } from "./data/right-arm";
+import { allLArmParts } from "./data/left-arm";
+
+import { useState } from "react";
+import { MdFoundation, MdReplay } from "react-icons/md";
 
 function App() {
+
+  // -- STATE VARIABLES -- //
+  //UNIT
+  const [rightArm, setRightArm] = useState({name: "NONE"})
+  const [leftArm, setLeftArm] = useState({name: "NONE"})
+  const [rightBack, setRightBack] = useState("NONE")
+  const [leftBack, setLeftBack] = useState("NONE")
+
+  //FRAME
+  const [head, setHead] =useState("NONE")
+  const [core, setCore] =useState("NONE")
+  const [arms, setArms] =useState("NONE")
+  const [legs, setLegs] =useState("NONE")
+
+  //INNER
+  const [booster, setBooster] = useState("NONE")
+  const [fcs, setFcs] = useState("NONE")
+  const [generator, setgenerator] = useState("NONE")
+
+  //EXPANSION
+  const [expansion, setExpansion] = useState("NONE")
+  
+
+  // -- RANDOMIZER FUNCTIONS -- //
+  //PART SPECIFIC
+  const randomizeRArm = () => {
+    let partsArray = [];
+    let finalPart;
+
+    partsArray = createPartsArray("RA", 47)
+
+    if(document.getElementById('no-weapon').checked){
+      partsArray.push(allRArmParts[0])
+    }
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+    
+    setRightArm(finalPart)
+  }
+
+  const randomizeLArm = () => {
+    let partsArray = [];
+    let finalPart;
+
+    partsArray = createPartsArray("LA", 60)
+
+    if(document.getElementById('no-weapon').checked){
+      partsArray.push(allLArmParts[0])
+    }
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+    
+    setLeftArm(finalPart)
+  }
+
+  //GENERIC
+  const createPartsArray = (prefix, max) => {
+    let aux = []
+
+    for(let i=1; i <= max; i++){
+      if (document.getElementById(`${prefix}${i < 10 ? `0${i}` : i}`).checked){
+        aux.push(getPartById(`${prefix}${i < 10 ? `0${i}` : i}`, prefix))
+      }
+    }
+
+    return aux;
+  }
+
+  const getPartById = (id, prefix) => {
+    let aux = [];
+    
+    switch (prefix) {
+      case "RA": 
+        aux = allRArmParts; 
+        break
+      case "LA":
+        aux = allLArmParts;
+    }
+
+    return aux.find((part) =>{
+      return part.id == id;
+    })
+  }
+
+
+  // -- WEB PAGE -- //
   return (
     <div className="background">
       <div className="main-view">
@@ -20,29 +111,29 @@ function App() {
             <div className="category">
                 <h2>UNIT</h2>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>R-ARM UNIT</h3>
                     <div className="row">
-                      <span id="right-arm">PART NAME</span>
+                      <span id="right-arm">{rightArm.name}</span>
                     </div>
                   </div>
-                  <div className="single-rando-button selectable">
+                  <div className="single-rando-button selectable" onClick={randomizeRArm}>
                     <MdReplay size={37} color="#FFF"/>
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>L-ARM UNIT</h3>
                     <div className="row">
-                      <span id="left-arm">PART NAME</span>
+                      <span id="left-arm">{leftArm.name}</span>
                     </div>
                   </div>
-                  <div className="single-rando-button selectable">
+                  <div className="single-rando-button selectable" onClick={randomizeLArm}>
                     <MdReplay size={37} color="#FFF"/>
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>R-BACK UNIT</h3>
                     <div className="row">
                       <span id="right-back">PART NAME</span>
@@ -53,7 +144,7 @@ function App() {
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>L-BACK UNIT</h3>
                     <div className="row">
                       <span id="left-back">PART NAME</span>
@@ -68,7 +159,7 @@ function App() {
             <div className="category">
                 <h2>FRAME</h2>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>HEAD</h3>
                     <div className="row">
                       <span id="head">PART NAME</span>
@@ -79,7 +170,7 @@ function App() {
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>CORE</h3>
                     <div className="row">
                       <span id="core">PART NAME</span>
@@ -90,7 +181,7 @@ function App() {
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>ARMS</h3>
                     <div className="row">
                       <span id="arms">PART NAME</span>
@@ -101,7 +192,7 @@ function App() {
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>LEGS</h3>
                     <div className="row">
                       <span id="legs">PART NAME</span>
@@ -116,7 +207,7 @@ function App() {
             <div className="category">
                 <h2>INNER</h2>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>BOOSTER</h3>
                     <div className="row">
                       <span id="booster">PART NAME</span>
@@ -127,7 +218,7 @@ function App() {
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>FCS</h3>
                     <div className="row">
                       <span id="fcs">PART NAME</span>
@@ -138,7 +229,7 @@ function App() {
                   </div>
                 </div>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>GENERATOR</h3>
                     <div className="row">
                       <span id="generator">PART NAME</span>
@@ -153,7 +244,7 @@ function App() {
             <div className="category">
                 <h2>EXPANSION</h2>
                 <div className="entry-container">
-                  <div className="entry selectable">
+                  <div className="entry">
                     <h3>EXPANSION</h3>
                     <div className="row">
                       <span id="expansion">PART NAME</span>
@@ -187,7 +278,8 @@ function App() {
               <h2>OPTIONS</h2>
               <div className="option">
                 <input type="checkbox" defaultChecked id="no-overweight"/>
-                <span>DISABLE OVERWEIGHT</span>
+                <span>DISABLE OVERWEIGHT (ONLY FOR FULL RANDOM
+                  )</span>
               </div>
               <div className="option">
                 <input type="checkbox" id="no-weapon"/>
