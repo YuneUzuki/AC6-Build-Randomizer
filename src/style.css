@@ -187,3 +187,35 @@ h1{
     color: white;
     margin-bottom: 4px;
 }
+
+.mech-status{
+    margin-top: 2vh;
+    margin-left: 6px;
+    width: 96%;
+}
+
+.red-warning {
+    color: red;
+    font-size: medium;
+}
+.orange-warning {
+    color: orange;
+    font-size: medium;
+}
+.yellow-warning {
+    color: yellow;
+    font-size: medium;
+}
+
+.progress-bar {
+    background-color: rgb(220, 255, 255);
+    padding: 4px;
+    width: 96%;
+    height: 3vh;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+}
+.progress-bar>div{
+  background-color: rgba(20, 140, 240, 1);
+  height: 100%;
+}

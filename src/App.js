@@ -2,33 +2,43 @@ import "./style.css";
 
 import { allRArmParts } from "./data/right-arm";
 import { allLArmParts } from "./data/left-arm";
+import { allRBackParts } from "./data/right-back";
+import { allLBackParts } from "./data/left-back";
+import { allHeadParts } from "./data/head";
+import { allCoreParts } from "./data/core";
+import { allArmsParts } from "./data/arms";
+import { allLegsParts } from "./data/legs";
 
 import { useState } from "react";
-import { MdFoundation, MdReplay } from "react-icons/md";
+import { useEffect } from "react";
+import { MdReplay } from "react-icons/md";
 
 function App() {
 
   // -- STATE VARIABLES -- //
   //UNIT
-  const [rightArm, setRightArm] = useState({name: "NONE"})
-  const [leftArm, setLeftArm] = useState({name: "NONE"})
-  const [rightBack, setRightBack] = useState("NONE")
-  const [leftBack, setLeftBack] = useState("NONE")
+  const [rightArm, setRightArm] = useState({name: "RIGHT ARM", weight: 0, en_load: 0})
+  const [leftArm, setLeftArm] = useState({name: "LEFT ARM", weight: 0, en_load: 0})
+  const [rightBack, setRightBack] = useState({name: "RIGHT BACK", weight: 0, en_load: 0})
+  const [leftBack, setLeftBack] = useState({name: "LEFT BACK", weight: 0, en_load: 0})
 
   //FRAME
-  const [head, setHead] =useState("NONE")
-  const [core, setCore] =useState("NONE")
-  const [arms, setArms] =useState("NONE")
-  const [legs, setLegs] =useState("NONE")
+  const [head, setHead] = useState({name: "HEAD", weight: 0, en_load: 0})
+  const [core, setCore] = useState({name: "CORE", weight: 0, en_load: 0, core_out_adj: 0})
+  const [arms, setArms] = useState({name: "ARMS", weight: 0, en_load: 0, arm_max_load: 0})
+  const [legs, setLegs] = useState({name: "LEGS", en_load: 0, leg_max_load: 0})
 
   //INNER
-  const [booster, setBooster] = useState("NONE")
-  const [fcs, setFcs] = useState("NONE")
-  const [generator, setgenerator] = useState("NONE")
+  const [booster, setBooster] = useState({name: "BOOSTER", weight: 0, en_load: 0})
+  const [fcs, setFcs] = useState({name: "FCS", weight: 0, en_load: 0})
+  const [generator, setgenerator] = useState({name: "GENERATOR", weight: 0, en_output: 1000})
 
   //EXPANSION
-  const [expansion, setExpansion] = useState("NONE")
+  const [expansion, setExpansion] = useState({name: "EXPANSION"})
   
+  //TOTAL VALUES
+  const [totalWeight, setTotalWeight] = useState(0)
+  const [totalENLoad, setTotaENLoad] = useState(0)
 
   // -- RANDOMIZER FUNCTIONS -- //
   //PART SPECIFIC
@@ -62,12 +72,90 @@ function App() {
     setLeftArm(finalPart)
   }
 
+  const randomizeRBack = () => {
+    let partsArray = [];
+    let finalPart;
+
+    if(document.getElementById("enable-weapon-switch").checked){
+      partsArray = createMixedPartsArray(["RB", "RA"], [40, 47], 2)
+    } else {
+      partsArray = createPartsArray("RB", 40)
+    }
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+
+    setRightBack(finalPart)
+  }
+
+  const randomizeLBack = () => {
+    let partsArray = [];
+    let finalPart;
+
+    if(document.getElementById("enable-weapon-switch").checked){
+      partsArray = createMixedPartsArray(["LB", "LA"], [47, 60], 2)
+    } else {
+      partsArray = createPartsArray("LB", 40)
+    }
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+
+    setLeftBack(finalPart)
+  }
+
+  const randomizeHead = () => {
+    let partsArray = [];
+    let finalPart;
+
+    partsArray = createPartsArray("HE", 23)
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+
+    setHead(finalPart)
+  }
+
+  const randomizeCore = () => {
+    let partsArray = [];
+    let finalPart;
+
+    partsArray = createPartsArray("CO", 17)
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+
+    setCore(finalPart)
+  }
+  
+  const randomizeArms = () => {
+    let partsArray = [];
+    let finalPart;
+
+    partsArray = createPartsArray("AR", 19)
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+
+    setArms(finalPart)
+  }
+
+  const randomizeLegs = () => {
+    let partsArray = [];
+    let finalPart;
+
+    partsArray = createPartsArray("LE", 25)
+
+    finalPart = partsArray[Math.floor(Math.random() * partsArray.length)]
+
+    setLegs(finalPart)
+  }
+
   //GENERIC
-  const createPartsArray = (prefix, max) => {
+  const createPartsArray = (prefix, max, weightLimit, enLimit) => {
     let aux = []
 
     for(let i=1; i <= max; i++){
-      if (document.getElementById(`${prefix}${i < 10 ? `0${i}` : i}`).checked){
+      if (
+        (document.getElementById(`${prefix}${i < 10 ? `0${i}` : i}`).checked) && 
+        (weightLimit === undefined ? true : getPartById(`${prefix}${i < 10 ? `0${i}` : i}`, prefix).weight) &&
+        (enLimit === undefined ? true : getPartById(`${prefix}${i < 10 ? `0${i}` : i}`, prefix).en_load < enLimit)
+      ){
         aux.push(getPartById(`${prefix}${i < 10 ? `0${i}` : i}`, prefix))
       }
     }
@@ -75,15 +163,52 @@ function App() {
     return aux;
   }
 
+  const createMixedPartsArray = (prefixArray, maxArray, typesQtty, weightLimit, enLimit) => {
+    let aux = []
+
+    for(let i=0; i<typesQtty; i++){
+      for(let j=1; j <= maxArray[i]; j++){
+        if (
+          (document.getElementById(`${prefixArray[i]}${j < 10 ? `0${j}` : j}`).checked) && 
+          (weightLimit === undefined ? true : getPartById(`${prefixArray[i]}${j < 10 ? `0${j}` : j}`, prefixArray[i]).weight) &&
+          (enLimit === undefined ? true : getPartById(`${prefixArray[i]}${j < 10 ? `0${j}` : j}`, prefixArray[i]).en_load < enLimit)
+        ){
+          aux.push(getPartById(`${prefixArray[i]}${j < 10 ? `0${j}` : j}`, prefixArray[i]))
+        }
+      }
+    }
+    
+    return aux;
+  }
+
   const getPartById = (id, prefix) => {
     let aux = [];
-    
+  
     switch (prefix) {
       case "RA": 
         aux = allRArmParts; 
         break
       case "LA":
         aux = allLArmParts;
+        break
+      case "RB":
+        aux = allRBackParts;
+        break
+      case "LB":
+        aux = allLBackParts;
+        break
+      case "HE":
+        aux = allHeadParts;
+        break
+      case "CO":
+        aux = allCoreParts;
+        break
+      case "AR":
+        aux = allArmsParts;
+        break
+      case "LE":
+        aux = allLegsParts;
+        break
     }
 
     return aux.find((part) =>{
@@ -91,10 +216,62 @@ function App() {
     })
   }
 
+  const updateTotalValues = () => {
+    setTotalWeight(
+      rightArm.weight +
+      leftArm.weight +
+      rightBack.weight +
+      leftBack.weight +
+      head.weight +
+      core.weight +
+      arms.weight +
+      booster.weight +
+      fcs.weight +
+      generator.weight 
+    )
+    console.log(totalWeight)
+
+    setTotaENLoad(
+      rightArm.en_load +
+      leftArm.en_load +
+      rightBack.en_load +
+      leftBack.en_load +
+      head.en_load +
+      core.en_load +
+      arms.en_load +
+      booster.en_load +
+      fcs.en_load +
+      legs.en_load 
+    )
+    console.log(totalENLoad)
+  }
+
+  useEffect(() => {
+    updateTotalValues()
+  }, [rightArm, leftArm, rightBack, leftBack, head, core, arms, legs, booster, fcs, generator]);
+
+  useEffect(() => {
+    if(totalWeight / legs.leg_max_load * 100 <=  100){
+      document.getElementById("weight-bar").style.width = `${totalWeight / legs.leg_max_load * 100}%`
+      document.getElementById("weight-bar").style.backgroundColor = "rgba(20, 140, 240, 1)"
+    } else {
+      document.getElementById("weight-bar").style.width = "100%";
+      document.getElementById("weight-bar").style.backgroundColor = "red";
+    }
+
+    if(totalENLoad / ((core.core_out_adj/100) * generator.en_output) * 100 <= 100){
+      document.getElementById("enload-bar").style.width = `${totalENLoad / ((core.core_out_adj/100) * generator.en_output) * 100}%`
+      document.getElementById("enload-bar").style.backgroundColor = "rgba(20, 140, 240, 1)"
+    } else {
+      document.getElementById("enload-bar").style.width = "100%";
+      document.getElementById("enload-bar").style.backgroundColor = "orange";
+    }
+  }, [totalWeight, totalENLoad]);
 
   // -- WEB PAGE -- //
   return (
     <div className="background">
+      <button onClick={() => {createPartsArray("RA", 30, null, 2000, true)}}>debug button lmao</button>
       <div className="main-view">
         <div className="assembly">
           <div className="assembly-sidecollumn"></div>
@@ -106,6 +283,24 @@ function App() {
             <br/>
             <div className="mission entry">
               <span>MISSION:</span>
+            </div>
+            <div className="mech-status entry">
+              <p>WEIGHT: {totalWeight} / {legs.leg_max_load} {totalWeight > legs.leg_max_load ? <span className="red-warning">OVERWEIGHT</span> : ""}</p>
+              <div className="progress-bar">
+                <div id="weight-bar"></div>
+              </div>
+              <p>EN LOAD: {totalENLoad} / {generator.en_output * core.core_out_adj/100} {totalENLoad > generator.en_output ? <span className="orange-warning">EN SHORTFALL</span> : ""}</p>
+              <div className="progress-bar">
+                <div id="enload-bar"></div>
+              </div>
+            </div>
+            <div className="mech-status entry">
+              <h2>ARMS LOAD</h2>
+              <br/>
+              <p>LARM + RARM: {leftArm.weight + rightArm.weight} / {arms.arm_max_load} {leftArm.weight + rightArm.weight > arms.arm_max_load ? <span className="yellow-warning">ARMS OVERLOAD</span> : ""}</p>
+              <p>LARM + RBACK: {leftArm.weight + rightBack.weight} / {arms.arm_max_load} {leftArm.weight + rightBack.weight > arms.arm_max_load ? <span className="yellow-warning">ARMS OVERLOAD</span> : ""}</p>
+              <p>LBACK + RARM: {leftBack.weight + rightArm.weight} / {arms.arm_max_load} {leftBack.weight + rightArm.weight > arms.arm_max_load ? <span className="yellow-warning">ARMS OVERLOAD</span> : ""}</p>
+              <p>LBACK + RBACK: {leftBack.weight + rightBack.weight} / {arms.arm_max_load} {leftBack.weight + rightBack.weight > arms.arm_max_load ? <span className="yellow-warning">ARMS OVERLOAD</span> : ""}</p>
             </div>
             <br/>
             <div className="category">
@@ -136,10 +331,10 @@ function App() {
                   <div className="entry">
                     <h3>R-BACK UNIT</h3>
                     <div className="row">
-                      <span id="right-back">PART NAME</span>
+                      <span id="right-back">{rightBack.name}</span>
                     </div>
                   </div>
-                  <div className="single-rando-button selectable">
+                  <div className="single-rando-button selectable" onClick={randomizeRBack}>
                     <MdReplay size={37} color="#FFF"/>
                   </div>
                 </div>
@@ -147,10 +342,10 @@ function App() {
                   <div className="entry">
                     <h3>L-BACK UNIT</h3>
                     <div className="row">
-                      <span id="left-back">PART NAME</span>
+                      <span id="left-back">{leftBack.name}</span>
                     </div>
                   </div>
-                  <div className="single-rando-button selectable">
+                  <div className="single-rando-button selectable" onClick={randomizeLBack}>
                     <MdReplay size={37} color="#FFF"/>
                   </div>
                 </div>
@@ -162,10 +357,10 @@ function App() {
                   <div className="entry">
                     <h3>HEAD</h3>
                     <div className="row">
-                      <span id="head">PART NAME</span>
+                      <span id="head">{head.name}</span>
                     </div>
                   </div>
-                  <div className="single-rando-button selectable">
+                  <div className="single-rando-button selectable" onClick={randomizeHead}>
                     <MdReplay size={37} color="#FFF"/>
                   </div>
                 </div>
@@ -173,10 +368,10 @@ function App() {
                   <div className="entry">
                     <h3>CORE</h3>
                     <div className="row">
-                      <span id="core">PART NAME</span>
+                      <span id="core">{core.name}</span>
                     </div>
                   </div>
-                  <div className="single-rando-button selectable">
+                  <div className="single-rando-button selectable" onClick={randomizeCore}>
                     <MdReplay size={37} color="#FFF"/>
                   </div>
                 </div>
@@ -184,10 +379,10 @@ function App() {
                   <div className="entry">
                     <h3>ARMS</h3>
                     <div className="row">
-                      <span id="arms">PART NAME</span>
+                      <span id="arms">{arms.name}</span>
                     </div>
                   </div>
-                  <div className="single-rando-button selectable">
+                  <div className="single-rando-button selectable" onClick={randomizeArms}>
                     <MdReplay size={37} color="#FFF"/>
                   </div>
                 </div>
@@ -195,7 +390,7 @@ function App() {
                   <div className="entry">
                     <h3>LEGS</h3>
                     <div className="row">
-                      <span id="legs">PART NAME</span>
+                      <span id="legs">{legs.name}</span>
                     </div>
                   </div>
                   <div className="single-rando-button selectable">
@@ -210,7 +405,7 @@ function App() {
                   <div className="entry">
                     <h3>BOOSTER</h3>
                     <div className="row">
-                      <span id="booster">PART NAME</span>
+                      <span id="booster">{booster.name}</span>
                     </div>
                   </div>
                   <div className="single-rando-button selectable">
@@ -221,7 +416,7 @@ function App() {
                   <div className="entry">
                     <h3>FCS</h3>
                     <div className="row">
-                      <span id="fcs">PART NAME</span>
+                      <span id="fcs">{fcs.name}</span>
                     </div>
                   </div>
                   <div className="single-rando-button selectable">
@@ -232,7 +427,7 @@ function App() {
                   <div className="entry">
                     <h3>GENERATOR</h3>
                     <div className="row">
-                      <span id="generator">PART NAME</span>
+                      <span id="generator">{generator.name}</span>
                     </div>
                   </div>
                   <div className="single-rando-button selectable">
@@ -247,7 +442,7 @@ function App() {
                   <div className="entry">
                     <h3>EXPANSION</h3>
                     <div className="row">
-                      <span id="expansion">PART NAME</span>
+                      <span id="expansion">{expansion.name}</span>
                     </div>
                   </div>
                   <div className="single-rando-button selectable">
@@ -278,8 +473,7 @@ function App() {
               <h2>OPTIONS</h2>
               <div className="option">
                 <input type="checkbox" defaultChecked id="no-overweight"/>
-                <span>DISABLE OVERWEIGHT (ONLY FOR FULL RANDOM
-                  )</span>
+                <span>DISABLE OVERWEIGHT ON FULL RANDO</span>
               </div>
               <div className="option">
                 <input type="checkbox" id="no-weapon"/>
@@ -288,6 +482,10 @@ function App() {
               <div className="option">
                 <input type="checkbox" id="arena"/>
                 <span>INCLUDES ARENA IN MISSION ROTATION</span>
+              </div>
+              <div className="option">
+                <input type="checkbox" id="enable-weapon-switch"/>
+                <span>INCLUDES ARM UNITS IN BACK UNIT ROTATION</span>
               </div>
             </div>
             <br/>
@@ -1992,3 +2190,35 @@ function App() {
 }
 
 export default App;
+
+
+/** 
+    These are just some general notes on how Weight, EN Load and Arms Load calculations work, and an idea of
+    how I want the rando to work. So, let's start by explaining how each value is calculated, before I can
+    think of an algorythm to try keeping them in check:
+
+    Weight is pretty simple, basically, take the legs, and the value from the stat "Load Limit". That determines
+    the weight that leg can take, for example, a "Mind Alpha" has a load limit of 63810, so if we put a core
+    that has a Weight value of 20000, that value goes down to 43810, leaving that for the rest of the build
+
+    Arms Load is exactly the same, however there are a few details that should be considered. First of all,
+    while the only values that are considered are the current weapons on the Arms Unit, we should consider the
+    shoulder units as well, since when swapped to those, their values is the one that counts, so if we have
+    a limit of 5000, on our left arm we have something that weights 3000, on the right arm something that weights
+    2000, that's okay, but the moment we swap what's on the right arm to something equipped on the shoulders
+    that weights 3000 as well, we go above 5000, which causes an overload
+
+    Lastly, there's EN Load, where we have two values to consider - The generator output, and the core output
+    adjustment - Basically, the generator output is multiplied by the core output adjustment%. So, for example,
+    if our Generator has 5000 EN Output, and our Core has 120% adjustment, our final value is of 6000 EN Load. 
+    Which then goes through the same rules of subtraction as Weight
+
+    Now, to talk a bit about how I think the algorythm should work. First of all, it will generate a completely
+    random build, and check if it fails Weight, EN Load or Arms Load requirements, if it fails, then it will
+    try to re-do the build - EN Load > Arms Load > Weight priority - depending on which factor failed, there will
+    be a rotation limit of 10, where it will pick a part at random, that is not the Legs, Core, Generator or Arms,
+    and randomize it again including only parts with a lower value than it in the rotation for whatever failed,
+    if after 10 rotations it still fails, then the respective part which determines the value gets randomized
+    again, and it repeats the 10 rotations. This process repeats a max of 3 times, and if all of them fail,
+    the randomizer returns an error saying it couldn't pick a combination that satisifies the requirement
+**/
