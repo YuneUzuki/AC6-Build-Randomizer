@@ -2,7 +2,7 @@
   "name": "ac6_build_randomizer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://YuneUzuki.github.io/AC6-Build-Randomizer",
+  "homepage": "https://Nephi-Lynn.github.io/AC6-Build-Randomizer",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
