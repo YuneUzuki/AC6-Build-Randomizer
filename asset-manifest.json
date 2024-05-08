@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/ac6-build-randomizer/static/css/main.44d0b28f.css",
+    "main.js": "/ac6-build-randomizer/static/js/main.0ca86f80.js",
+    "static/media/bg.jpg": "/ac6-build-randomizer/static/media/bg.a287cb752a5c17c98fa3.jpg",
+    "index.html": "/ac6-build-randomizer/index.html",
+    "main.44d0b28f.css.map": "/ac6-build-randomizer/static/css/main.44d0b28f.css.map",
+    "main.0ca86f80.js.map": "/ac6-build-randomizer/static/js/main.0ca86f80.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.44d0b28f.css",
+    "static/js/main.0ca86f80.js"
+  ]
+}
